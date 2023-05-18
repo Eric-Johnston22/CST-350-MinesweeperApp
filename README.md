@@ -1,1 +1,2 @@
-# Minesweeper
+# CST-350
+## Minesweeper
