@@ -5,7 +5,7 @@
 <html>
     <body>
 
-    @if(ViewBag.exploded!=true) {
+    @if(ViewBag.exploded!=true&&ViewBag.gamewon!=true) {
         <form>
             <div class="flex-grid">
                 @for (int i = 0; i < ViewBag.board.Size; i++)
@@ -76,7 +76,42 @@
                 }
             </div>
         </form>
-    } else
+    } else if (ViewBag.gamewon==true) 
+    {
+        <div class="flex-grid">
+            @for (int i = 0; i < ViewBag.board.Size; i++)
+            {
+                @for (int j = 0; j < ViewBag.board.Size; j++)
+                {
+                    @if (ViewBag.board.Grid[i, j].Live == true)
+                    {
+                        <div class="flex-box">
+                            <img class="game-button-image" src="~/img/flag.jpg">
+                        </div>
+                    }
+                    else if (ViewBag.board.Grid[i, j].LiveNeighbors > 0)
+                    {
+                        <div class="flex-box">
+                            <button class="clicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="HandleButtonClick">
+                                <div style="color:green">@(string.Format("{0}", ViewBag.board.Grid[i, j].LiveNeighbors))</div>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="flex-box">
+                            <button class="clicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="HandleButtonClick">
+                            </button>
+                        </div>
+                    }
+                }
+                @if (i != ViewBag.board.Size - 1)
+                {
+                    <div class="line-break"></div>
+                }
+            }
+        </div>
+    }else
     {
         <div class="flex-grid">
             @for (int i = 0; i < ViewBag.board.Size; i++)
@@ -94,7 +129,6 @@
                             <button class="clicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="HandleButtonClick">
                                 <div style="color:red">@(string.Format("{0}", ViewBag.board.Grid[i, j].LiveNeighbors))</div>
                             </button>
-                            <div></div>
                         </div>
                     }
                     else
@@ -112,8 +146,9 @@
             }
         </div>
     }
+    <br />
     <form>
-        <button class="new-game" asp-asp-controller="Game" asp-action="NewGame">New Game</button>
+        <button class="new-game-button" asp-asp-controller="Game" asp-action="NewGame">New Game</button>
     </form>
     </body>
 </html>

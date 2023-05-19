@@ -29,11 +29,7 @@ namespace Minesweeper.Controllers
                 //Check if it was a winning move
                 if (boardService.RemainingCells == boardService.NumberOfBombs)
                 {
-                    //Mark all cells with bombs as flagged
-                    //makeButtonsFlagged();
-
-                    //Call winning message
-                    //youWin();
+                    ViewBag.gamewon = true;
                 }
             }
 
@@ -44,7 +40,7 @@ namespace Minesweeper.Controllers
 
         public IActionResult NewGame()
         {
-            boardService = new BoardService(15);
+            boardService = new BoardService(10);
             ViewBag.board = boardService;
             return View("Index");
         }
