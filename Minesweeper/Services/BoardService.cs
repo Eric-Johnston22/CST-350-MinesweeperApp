@@ -5,7 +5,7 @@ namespace Minesweeper.Services
 {
     public class BoardService
     {
-        private CellModel[] bombs = new CellModel[25];
+        private CellModel[] bombs = new CellModel[225];
         public CellModel[] Bombs { get { return bombs; } }
         private decimal difficulty;
         public decimal Difficulty { get { return difficulty; } set { this.difficulty = value; } }
@@ -40,7 +40,7 @@ namespace Minesweeper.Services
                 }
             }
             this.RemainingCells = this.Size * this.Size;
-            this.Difficulty = 10;
+            this.Difficulty = 25;
             this.setupLiveNeighbors();
             this.calculateLiveNeighbors();
         }
