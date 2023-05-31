@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Minesweeper.Models;
 using Minesweeper.Services;
 using NuGet.Protocol.Plugins;
 
@@ -12,32 +13,50 @@ namespace Minesweeper.Controllers
             ViewBag.board = boardService;
             return View("Index");
         }
-        public IActionResult HandleButtonClick(string buttonNumber)
+        public IActionResult LeftButtonClick(string buttonNumber)
+        {
+
+            string[] position = buttonNumber.Split(',');
+            int x = int.Parse(position[0]);
+            int y = int.Parse(position[1]);
+            
+            if (!boardService.Grid[x,y].Flagged)
+            {
+                if (boardService.Grid[x, y].Live == true)
+                {
+                    boardService.Exploded = true;
+                }
+                else
+                {
+                    boardService.floodFill(x, y);
+
+                    //Check if it was a winning move
+                    if (boardService.RemainingCells == boardService.NumberOfBombs)
+                    {
+                        boardService.GameWon = true;
+                    }
+                }
+            }
+
+            return PartialView("LeftButtonClick",boardService);
+        
+        }
+        public IActionResult RightButtonClick(string buttonNumber)
         {
             string[] position = buttonNumber.Split(',');
             int x = int.Parse(position[0]);
             int y = int.Parse(position[1]);
-
-            if (boardService.Grid[x, y].Live == true)
+            bool currentlyFlagged = boardService.Grid[x, y].Flagged;
+            if(currentlyFlagged == true)
             {
-                ViewBag.exploded = true;
-            }
-            else
+                boardService.Grid[x,y].Flagged = false;
+            } else
             {
-                boardService.floodFill(x, y);
-
-                //Check if it was a winning move
-                if (boardService.RemainingCells == boardService.NumberOfBombs)
-                {
-                    ViewBag.gamewon = true;
-                }
+                boardService.Grid[x, y].Flagged = true;
             }
-
-            ViewBag.board = boardService;
-
-            return View("Index");
+            CellModel toFlag = boardService.Grid[x, y];
+            return PartialView("RightButtonClick",toFlag);
         }
-
         public IActionResult NewGame()
         {
             boardService = new BoardService(10);

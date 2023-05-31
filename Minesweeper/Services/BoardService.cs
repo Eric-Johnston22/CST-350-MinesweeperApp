@@ -12,6 +12,8 @@ namespace Minesweeper.Services
 
         public bool gameWon = false;
         public bool GameWon { get { return gameWon; } set { this.gameWon = value; } }
+        public bool exploded = false;
+        public bool Exploded { get { return exploded; } set { this.exploded = value; } }
 
         private CellModel[,] grid = new CellModel[0,0];
         public CellModel[,] Grid { get { return grid; } set { grid = value; } }
@@ -40,7 +42,7 @@ namespace Minesweeper.Services
                 }
             }
             this.RemainingCells = this.Size * this.Size;
-            this.Difficulty = 25;
+            this.Difficulty = 10;
             this.setupLiveNeighbors();
             this.calculateLiveNeighbors();
         }

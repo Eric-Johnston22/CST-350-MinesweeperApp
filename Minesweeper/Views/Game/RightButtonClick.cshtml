@@ -1,0 +1,11 @@
+﻿@model Minesweeper.Models.CellModel
+
+@if(Model.Flagged)
+{
+    <button class="unclicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",Model.Row,Model.Column))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
+        <img class="game-button-image" src="~/img/flag.jpg">
+    </button>
+} else {
+    <button class="unclicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",Model.Row,Model.Column))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
+    </button>
+}
