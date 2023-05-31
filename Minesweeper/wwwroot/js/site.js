@@ -7,11 +7,17 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $(document).on("mousedown",".flex-grid button", function (event) {
+    $(document).on("mousedown", ".flex-grid button", function (event) {
         switch (event.which) {
             case 1:
                 var bn = $(this).val();
-                processRequest(bn, "/Game/LeftButtonClick");
+                var flagged = $(this).hasClass("flagged");
+                if (!flagged) {
+                    processRequest(bn, "/Game/LeftButtonClick");
+                } else {
+                    processRequest(bn, "/Game/RightButtonClick");
+                }
+
                 break;
             case 2:
                 alert("Middle");

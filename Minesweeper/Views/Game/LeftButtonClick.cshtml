@@ -61,7 +61,7 @@
                         @if(Model.Grid[i,j].Flagged==true)
                         {
                             <div class="flex-box" id="@(String.Format("{0},{1}",i,j))">
-                                <button class="unclicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
+                                <button class="unclicked flagged" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
                                     <img class="game-button-image" src="~/img/flag.jpg">
                                 </button>
                             </div>
@@ -92,7 +92,7 @@ else if (Model.GameWon == true)
                 @if (Model.Grid[i, j].Live == true)
                 {
                     <div class="flex-box" id="@(String.Format("{0},{1}",i,j))">
-                        <button class="clicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
+                        <button class="unclicked flagged" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
                             <img class="game-button-image" src="~/img/flag.jpg">
                         </button>
                     </div>
@@ -130,9 +130,7 @@ else
                 @if (Model.Grid[i, j].Live == true)
                 {
                     <div class="flex-box" id="@(String.Format("{0},{1}",i,j))">
-                        <button class="clicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
-                            <img class="game-button-image" src="~/img/bomb.png">
-                        </button>
+                        <img class="game-button-image" src="~/img/bomb.png">
                     </div>
                 }
                 else if (Model.Grid[i, j].LiveNeighbors > 0)

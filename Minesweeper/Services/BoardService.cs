@@ -183,9 +183,11 @@ namespace Minesweeper.Services
                     for (int j = -1; j < 2; j++)
                     {
                         //If it is on the board and not a bomb
+                        //Also, don't floodfill cells that have flags
                         if (row + i >= 0 && row + i < this.Size &&
                            col + j >= 0 && col + j < this.Size &&
-                           this.Grid[row + i, col + j].Live != true)
+                           this.Grid[row + i, col + j].Live != true&&
+                           this.Grid[row+i,col+j].Flagged!=true)
                         {
                             //Check if cell is visited and if not then visit it
                             //Decrement remaining available cell count
