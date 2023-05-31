@@ -15,7 +15,9 @@ $(document).ready(function () {
                 if (!flagged) {
                     processRequest(bn, "/Game/LeftButtonClick");
                 } else {
-                    processRequest(bn, "/Game/RightButtonClick");
+                    $(".flex-grid button").on("click", function (e) {
+                        e.preventDefault();
+                    });
                 }
 
                 break;
