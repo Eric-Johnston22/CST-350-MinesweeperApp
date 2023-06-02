@@ -20,21 +20,19 @@ namespace Minesweeper.Controllers
             int x = int.Parse(position[0]);
             int y = int.Parse(position[1]);
             
-            if (!boardService.Grid[x,y].Flagged)
-            {
-                if (boardService.Grid[x, y].Live == true)
-                {
-                    boardService.Exploded = true;
-                }
-                else
-                {
-                    boardService.floodFill(x, y);
 
-                    //Check if it was a winning move
-                    if (boardService.RemainingCells == boardService.NumberOfBombs)
-                    {
-                        boardService.GameWon = true;
-                    }
+            if (boardService.Grid[x, y].Live == true)
+            {
+                boardService.Exploded = true;
+            }
+            else
+            {
+                boardService.floodFill(x, y);
+
+                //Check if it was a winning move
+                if (boardService.RemainingCells == boardService.NumberOfBombs)
+                {
+                    boardService.GameWon = true;
                 }
             }
 
