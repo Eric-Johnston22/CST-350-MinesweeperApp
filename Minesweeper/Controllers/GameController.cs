@@ -10,7 +10,7 @@ namespace Minesweeper.Controllers
         static BoardService boardService = new BoardService(10);
         public IActionResult Index()
         {
-            ViewBag.board = boardService;
+            ViewBag.Size = boardService.Size;
             return View("Index");
         }
         public IActionResult LeftButtonClick(string buttonNumber)

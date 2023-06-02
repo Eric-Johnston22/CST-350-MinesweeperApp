@@ -7,16 +7,16 @@
         <p>Current Time: @DateTime.Now</p>
         <form>
             <div class="flex-grid">
-                @for (int i = 0; i < ViewBag.board.Size; i++)
+                @for (int i = 0; i < ViewBag.Size; i++)
                 {
-                    @for (int j = 0; j < ViewBag.board.Size; j++)
+                    @for (int j = 0; j < ViewBag.Size; j++)
                     {
                        <div class="flex-box" id="@(String.Format("{0},{1}",i,j))">
                            <button class="unclicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
                            </button>
                         </div>
                     }
-                    @if (i != ViewBag.board.Size - 1)
+                    @if (i != ViewBag.Size - 1)
                     {
                         <div class="line-break"></div>
                     }
