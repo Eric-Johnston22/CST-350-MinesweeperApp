@@ -58,7 +58,7 @@ namespace Minesweeper.Controllers
         public IActionResult NewGame()
         {
             boardService = new BoardService(10);
-            ViewBag.board = boardService;
+            ViewBag.Size = boardService.Size;
             return View("Index");
         }
 
