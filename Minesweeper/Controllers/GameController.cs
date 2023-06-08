@@ -62,5 +62,9 @@ namespace Minesweeper.Controllers
             return View("Index");
         }
 
+        public IActionResult Welcome()
+        {
+            return Content("Welcome, "+HttpContext.Session.GetString("username")+", your user id is: " + HttpContext.Session.GetInt32("uid"));
+        }
     }
 }

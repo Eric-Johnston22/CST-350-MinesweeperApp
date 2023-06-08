@@ -3,6 +3,9 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
+
+    onWelcome("/Game/Welcome");
+
     $(document).bind("contextmenu", function (e) {
         e.preventDefault();
     });
@@ -48,6 +51,16 @@ function processRequest(buttonNumber, handlerUrl) {
                 var stringNums = buttonNumber.split(",");
                 $("#" + stringNums[0] + "\\," + stringNums[1]).html(data);
             }
+        }
+    });
+}
+
+function onWelcome(handlerUrl) {
+    $.ajax({
+        method: 'GET',
+        url: handlerUrl,
+        success: function (data) {
+            $("#welcome").html(data);
         }
     });
 }

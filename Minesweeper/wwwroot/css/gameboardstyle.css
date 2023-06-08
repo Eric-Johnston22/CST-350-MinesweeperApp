@@ -78,3 +78,8 @@ input[type="reset"]::-moz-focus-inner {
     text-align:center;
     font-size: 36pt;
 }
+
+#top-message {
+    font-size: 18pt;
+    color:white;
+}

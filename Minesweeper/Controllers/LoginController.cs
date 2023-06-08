@@ -16,6 +16,8 @@ namespace Minesweeper.Controllers
 
             if(securityService.IsValid(model))
             {
+                HttpContext.Session.SetInt32("uid",model.Id);
+                HttpContext.Session.SetString("username",model.Username);
                 return RedirectToAction("Index", "Game");
             } else
             {
