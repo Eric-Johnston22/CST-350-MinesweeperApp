@@ -2,11 +2,13 @@
 using Minesweeper.Models;
 using Minesweeper.Services;
 using NuGet.Protocol.Plugins;
+using System.Text.Json;
 
 namespace Minesweeper.Controllers
 {
     public class GameController : Controller
     {
+        GameDAO gameDAO = new GameDAO();
         static BoardService boardService = new BoardService(10);
         public IActionResult Index()
         {
@@ -56,6 +58,37 @@ namespace Minesweeper.Controllers
             return PartialView("RightButtonClick",toFlag);
         }
         public IActionResult NewGame()
+        {
+            boardService = new BoardService(10);
+            ViewBag.Size = boardService.Size;
+            return View("Index");
+        }
+        public IActionResult SaveGame()
+        {
+            string gameData = "";
+            for(int i=0;i<boardService.Size;i++)
+            {
+                for(int j=0;j<boardService.Size;j++)
+                {
+                    gameData += boardService.Grid[i, j].ToString();
+                    gameData += "&";
+                }
+            }
+
+            int uid = HttpContext.Session.GetInt32("uid").GetValueOrDefault();
+            GameModel game = new GameModel(uid,gameData);
+            bool done = gameDAO.AddGameToDatabase(game);
+            return Content(""+done);
+        }
+
+        public IActionResult ShowSavedGames()
+        {
+            boardService = new BoardService(10);
+            ViewBag.Size = boardService.Size;
+            return View("Index");
+        }
+
+        public IActionResult LoadGame()
         {
             boardService = new BoardService(10);
             ViewBag.Size = boardService.Size;

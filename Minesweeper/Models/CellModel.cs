@@ -21,5 +21,9 @@
         public CellModel()
         {
         }
+        public override string ToString()
+        {
+            return "" + Visited+"," + Live +","+ LiveNeighbors+"," + Flagged+"," + Row+"," + Column;
+        }
     }
 }

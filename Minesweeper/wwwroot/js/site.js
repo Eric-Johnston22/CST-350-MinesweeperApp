@@ -6,6 +6,11 @@ $(document).ready(function () {
 
     onWelcome("/Game/Welcome");
 
+    $("#SaveGameButton").on("click", (e) => {
+        e.preventDefault();
+        onSave();
+    })
+
     $(document).bind("contextmenu", function (e) {
         e.preventDefault();
     });
@@ -59,6 +64,26 @@ function onWelcome(handlerUrl) {
     $.ajax({
         method: 'GET',
         url: handlerUrl,
+        success: function (data) {
+            $("#welcome").html(data);
+        }
+    });
+}
+
+function onSave() {
+    $.ajax({
+        method: 'GET',
+        url: "/Game/SaveGame",
+        success: function (data) {
+            $("#welcome").html("Your game has been saved in a separate save document. Success: "+data);
+        }
+    });
+}
+
+function onShowSavedGames() {
+    $.ajax({
+        method: 'GET',
+        url: "/Game/ShowSavedGames",
         success: function (data) {
             $("#welcome").html(data);
         }

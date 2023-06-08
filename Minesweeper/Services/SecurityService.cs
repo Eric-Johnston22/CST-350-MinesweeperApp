@@ -18,6 +18,12 @@ namespace Minesweeper.Services
         {
             return playerDAO.AddPlayerToDatabase(player);
         }
+
+        public PlayerModel getPlayer(PlayerModel player)
+        {
+            return playerDAO.GetPlayerByNameAndPassword(player);
+        }
+
         public SecurityService()
         {
         }
