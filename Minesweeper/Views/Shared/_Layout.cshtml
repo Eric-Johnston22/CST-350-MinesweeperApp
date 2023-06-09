@@ -18,7 +18,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1" id="links">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Main</a>
                         </li>
@@ -28,6 +28,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
                         </li>
+                        @if(Context.Session.GetInt32("uid")!=null)
+                        {
+                            <li class="nav-item">
+                                <a id="SaveGameButton" class="nav-link text-dark" asp-area="" asp-controller="Game" asp-action="SaveGame">Save Game</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="ShowSavedGamesButton" class="nav-link text-dark" asp-area="" asp-controller="Game" asp-action="ShowSavedGames">Show Saved Games</a>
+                            </li>
+                        }                        
                     </ul>
                 </div>
             </div>

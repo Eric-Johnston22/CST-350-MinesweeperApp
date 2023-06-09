@@ -3,6 +3,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//For School
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+//End School
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,7 +26,17 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//Also for School
+app.UseSession();
 app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
+//End School
 
 app.MapControllerRoute(
     name: "default",

@@ -1,0 +1,36 @@
+﻿<header>
+    <link rel="stylesheet" href="~/css/gameboardstyle.css" />
+</header>
+
+<html>
+    <body>
+        <div id="top-message">
+            <p id="welcome"></p>
+
+            <p>Time of Last Full Page Refresh: @DateTime.Now</p>
+        </div>
+
+        <form>
+            <div class="flex-grid">
+                @for (int i = 0; i < ViewBag.Size; i++)
+                {
+                    @for (int j = 0; j < ViewBag.Size; j++)
+                    {
+                       <div class="flex-box" id="@(String.Format("{0},{1}",i,j))">
+                           <button class="unclicked" style="border: medium solid black;" type="submit" value="@(String.Format("{0},{1}",i,j))" name="buttonNumber" asp-controller="Game" asp-action="LeftButtonClick">
+                           </button>
+                        </div>
+                    }
+                    @if (i != ViewBag.Size - 1)
+                    {
+                        <div class="line-break"></div>
+                    }
+                }
+            </div>
+        </form>
+    <br />
+    <form>
+        <button class="new-game-button" asp-asp-controller="Game" asp-action="NewGame">New Game</button>
+    </form>
+    </body>
+</html>

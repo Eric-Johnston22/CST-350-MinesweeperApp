@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Numerics;
 using Minesweeper.Models;
 namespace Minesweeper.Services
 {
@@ -103,6 +104,35 @@ namespace Minesweeper.Services
                 };
             }
             return success;
+        }
+
+        public PlayerModel GetPlayerByNameAndPassword(PlayerModel player)
+        {
+            string sqlStatement = "SELECT * FROM dbo.player WHERE username=@username and password = @password";
+            PlayerModel gottenPlayer = new PlayerModel();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(sqlStatement, connection);
+                command.Parameters.Add("@USERNAME", System.Data.SqlDbType.VarChar, 255).Value = player.Username;
+                command.Parameters.Add("@PASSWORD", System.Data.SqlDbType.VarChar).Value = player.Password;
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        gottenPlayer = new PlayerModel(reader.GetInt32(0),reader.GetString(1),reader.GetString(2),reader.GetString(3),reader.GetInt32(4),reader.GetString(5),reader.GetString(6),reader.GetString(7),reader.GetString(8));
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                };
+            }
+            return gottenPlayer;
         }
     }
 }
