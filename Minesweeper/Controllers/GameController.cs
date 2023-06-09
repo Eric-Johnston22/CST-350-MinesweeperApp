@@ -95,6 +95,7 @@ namespace Minesweeper.Controllers
             int num = Int32.Parse(gameNumber);
             GameModel loaded = new GameModel();
             loaded.GameNumber = num;
+            boardService = new BoardService(10);
             boardService.Grid = gameDAO.GetGameByNumber(loaded);
             ViewBag.Size = boardService.Size;
             return PartialView("LeftButtonClick",boardService);
