@@ -16,7 +16,7 @@ namespace Minesweeper.Controllers
 
             if(securityService.IsValid(model))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Game");
             } else
             {
                 ViewBag.error = true;
