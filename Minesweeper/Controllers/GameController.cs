@@ -100,6 +100,15 @@ namespace Minesweeper.Controllers
             return PartialView("LeftButtonClick",boardService);
         }
 
+        public IActionResult DeleteGame(string gameNumber)
+        {
+            int num = Int32.Parse(gameNumber);
+            GameModel del = new GameModel();
+            del.GameNumber = num;
+            bool success = gameDAO.DeleteGameByNumber(del);
+            return Content(""+success);
+        }
+
         public IActionResult Welcome()
         {
             return Content("Welcome, "+HttpContext.Session.GetString("username")+", your user id is: " + HttpContext.Session.GetInt32("uid"));

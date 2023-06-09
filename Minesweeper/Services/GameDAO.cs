@@ -109,7 +109,7 @@ namespace Minesweeper.Services
                 connection.Open();
                 string sqlStatement = "DELETE FROM dbo.game WHERE GameNumber=@GameNumber";
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
-                command.Parameters.AddWithValue("@Id", game.GameNumber);
+                command.Parameters.AddWithValue("@GameNumber", game.GameNumber);
                 int affected = command.ExecuteNonQuery();
                 if (affected > 0)
                 {
