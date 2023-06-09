@@ -23,5 +23,9 @@
             Time = time;
             Date = date;
         }
+
+        public GameModel()
+        {
+        }
     }
 }

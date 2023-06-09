@@ -12,14 +12,14 @@ namespace Minesweeper.Services
         {
         }
 
-        public List<GameModel> FindGamesById(GameModel game)
+        public List<GameModel> FindGamesById(PlayerModel player)
         {
             string sqlStatement = "SELECT * FROM dbo.game WHERE Id=@Id";
             List<GameModel> gameList = new List<GameModel>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
-                command.Parameters.Add("@Id", System.Data.SqlDbType.Int).Value =game.Id;
+                command.Parameters.Add("@Id", System.Data.SqlDbType.Int).Value =player.Id;
                 try
                 {
                     connection.Open();
@@ -46,7 +46,7 @@ namespace Minesweeper.Services
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
-                command.Parameters.Add("@Id", System.Data.SqlDbType.Int).Value = game.Id;
+                command.Parameters.Add("@GameNumber", System.Data.SqlDbType.Int).Value = game.GameNumber;
                 try
                 {
                     connection.Open();

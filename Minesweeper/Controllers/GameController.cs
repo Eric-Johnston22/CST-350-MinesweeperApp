@@ -83,16 +83,21 @@ namespace Minesweeper.Controllers
 
         public IActionResult ShowSavedGames()
         {
-            boardService = new BoardService(10);
-            ViewBag.Size = boardService.Size;
-            return View("Index");
+            int uid = HttpContext.Session.GetInt32("uid").GetValueOrDefault();
+            PlayerModel player = new PlayerModel();
+            player.Id = uid;
+            List<GameModel> games = gameDAO.FindGamesById(player);
+            return PartialView("ShowSavedGames",games);
         }
 
-        public IActionResult LoadGame()
+        public IActionResult LoadGame(string gameNumber)
         {
-            boardService = new BoardService(10);
+            int num = Int32.Parse(gameNumber);
+            GameModel loaded = new GameModel();
+            loaded.GameNumber = num;
+            boardService.Grid = gameDAO.GetGameByNumber(loaded);
             ViewBag.Size = boardService.Size;
-            return View("Index");
+            return PartialView("LeftButtonClick",boardService);
         }
 
         public IActionResult Welcome()

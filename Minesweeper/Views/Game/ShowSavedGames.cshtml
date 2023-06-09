@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Minesweeper.Models.GameModel>
+<head>
+    <style type="text/css">
+        td {
+            width: 20%;
+            overflow: hidden;
+        }
+        tr:nth-child(even) {
+            background-color:aliceblue;
+            color:black;
+        }
+        tr:nth-child(odd) {
+            background-color:dimgrey;
+            color: white;
+        }
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        button {
+            color:blue;
+        }
+
+    </style>
+</head>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GameNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GameData)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameData)
+            </td>
+            <td>
+                <button class="load-button" type="submit" value="@item.GameNumber" name="buttonNumber">
+                    <div class="game-label">Load</div>
+                </button>
+
+                <button class="delete-button" type="submit" value="@item.GameNumber" name="buttonNumber">
+                    <div class="game-label">Delete</div>
+                </button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

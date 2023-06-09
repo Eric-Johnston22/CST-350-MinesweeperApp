@@ -3,12 +3,33 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
-
+    
     onWelcome("/Game/Welcome");
+
+
+    $(document).on("click", ".delete-button", function (event) {
+        event.preventDefault();
+        var gameNumber = $(this).val();
+        console.log("Delete button clicked for game #:"+gameNumber);
+    });
+
+    $(document).on("click", ".load-button", function (event) {
+        event.preventDefault();
+        var gameNumber = $(this).val();
+        //console.log("Load button clicked for game #:" + gameNumber);
+
+        loadGame(gameNumber);
+    });
+
 
     $("#SaveGameButton").on("click", (e) => {
         e.preventDefault();
         onSave();
+    })
+
+    $("#ShowSavedGamesButton").on("click", (e) => {
+        e.preventDefault();
+        onLoadGames();
     })
 
     $(document).bind("contextmenu", function (e) {
@@ -79,13 +100,26 @@ function onSave() {
         }
     });
 }
-
-function onShowSavedGames() {
+function onLoadGames() {
     $.ajax({
         method: 'GET',
         url: "/Game/ShowSavedGames",
         success: function (data) {
             $("#welcome").html(data);
+            $(".flex-grid").html("");
+        }
+    });
+}
+
+function loadGame(gameNumber) {
+    $.ajax({
+        datatype: "json",
+        method: 'POST',
+        url: "/Game/LoadGame",
+        data: { "gameNumber": gameNumber },
+        success: function (data) {
+            $("#welcome").html("Welcome to loaded game #" + gameNumber);
+            $(".flex-grid").html(data);
         }
     });
 }
