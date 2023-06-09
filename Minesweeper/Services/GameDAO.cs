@@ -1,4 +1,5 @@
-﻿using Minesweeper.Models;
+﻿using Minesweeper.Controllers;
+using Minesweeper.Models;
 using System.Data.SqlClient;
 
 namespace Minesweeper.Services
@@ -56,7 +57,9 @@ namespace Minesweeper.Services
                     {
                         string gameData = reader.GetString(4);
                         string[] cells = gameData.Split('&');
-                        for(int i=0;i<cells.Length;i++)
+                        GameController.temp = new BoardService(bool.Parse(cells[cells.Length - 5]), bool.Parse(cells[cells.Length - 4]),Int32.Parse(cells[cells.Length - 3]),Int32.Parse(cells[cells.Length - 2]), Int32.Parse(cells[cells.Length - 1]));
+
+                        for (int i=0;i<cells.Length-5;i++)
                         {
                             string[] data = cells[i].Split(",");
                             CellModel singleCell = new CellModel();
@@ -91,14 +94,17 @@ namespace Minesweeper.Services
                             }
                             cellModel[singleCell.Row,singleCell.Column] = singleCell;
                         }
+                        
                         break;
                     }
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 };
             }
+            GameController.temp.Grid = cellModel;
             return cellModel;
         }
         public bool DeleteGameByNumber(GameModel game)

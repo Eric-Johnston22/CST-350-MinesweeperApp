@@ -10,6 +10,9 @@ namespace Minesweeper.Controllers
     {
         GameDAO gameDAO = new GameDAO();
         static BoardService boardService = new BoardService(10);
+
+        public static BoardService temp = new BoardService(10);
+
         public IActionResult Index()
         {
             ViewBag.Size = boardService.Size;
@@ -74,7 +77,11 @@ namespace Minesweeper.Controllers
                     gameData += "&";
                 }
             }
-
+            gameData += boardService.Exploded;
+            gameData += "&"+boardService.GameWon;
+            gameData += "&" + boardService.NumberOfBombs;
+            gameData += "&" + boardService.RemainingCells;
+            gameData += "&" + boardService.Size;
             int uid = HttpContext.Session.GetInt32("uid").GetValueOrDefault();
             GameModel game = new GameModel(uid,gameData);
             bool done = gameDAO.AddGameToDatabase(game);
@@ -95,8 +102,8 @@ namespace Minesweeper.Controllers
             int num = Int32.Parse(gameNumber);
             GameModel loaded = new GameModel();
             loaded.GameNumber = num;
-            boardService = new BoardService(10);
-            boardService.Grid = gameDAO.GetGameByNumber(loaded);
+            gameDAO.GetGameByNumber(loaded);
+            boardService = temp;
             ViewBag.Size = boardService.Size;
             return PartialView("LeftButtonClick",boardService);
         }

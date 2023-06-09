@@ -10,9 +10,9 @@ namespace Minesweeper.Services
         private decimal difficulty;
         public decimal Difficulty { get { return difficulty; } set { this.difficulty = value; } }
 
-        public bool gameWon = false;
+        private bool gameWon = false;
         public bool GameWon { get { return gameWon; } set { this.gameWon = value; } }
-        public bool exploded = false;
+        private bool exploded = false;
         public bool Exploded { get { return exploded; } set { this.exploded = value; } }
 
         private CellModel[,] grid = new CellModel[0,0];
@@ -46,6 +46,16 @@ namespace Minesweeper.Services
             this.setupLiveNeighbors();
             this.calculateLiveNeighbors();
         }
+
+        public BoardService( bool exploded, bool gameWon, int numberOfBombs, int remainingCells, int size)
+        {
+            GameWon = gameWon;
+            Exploded = exploded;
+            NumberOfBombs = numberOfBombs;
+            RemainingCells = remainingCells;
+            Size = size;
+        }
+
         public void setupLiveNeighbors()
         {
             int numberOfBombs = (int)((this.Size * this.Size) * (Difficulty / 100));
