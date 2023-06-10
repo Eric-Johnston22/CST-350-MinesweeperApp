@@ -23,7 +23,7 @@ namespace Minesweeper.Controllers
         }
 
         [HttpGet("showSavedGames/{GameNumber}")]
-        public ActionResult<IEnumerable<GameModel>> ShowOneGame(int GameNumber)
+        public ActionResult<GameModel> ShowOneGame(int GameNumber)
         {
             GameModel gameModel = new GameModel();
             gameModel.GameNumber = GameNumber;

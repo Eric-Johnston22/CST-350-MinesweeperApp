@@ -66,10 +66,10 @@ namespace Minesweeper.Services
             return gameList;
         }
 
-        public List<GameModel> FindGameByNumber(GameModel game)
+        public GameModel FindGameByNumber(GameModel game)
         {
             string sqlStatement = "SELECT * FROM dbo.game WHERE GameNumber=@GameNumber";
-            List<GameModel> gameList = new List<GameModel>();
+            GameModel gotten  = new GameModel();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
@@ -81,8 +81,8 @@ namespace Minesweeper.Services
 
                     while (reader.Read())
                     {
-                        GameModel gotten = new GameModel(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
-                        gameList.Add(gotten);
+                        gotten = new GameModel(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                        break;
                     }
                 }
                 catch (Exception ex)
@@ -90,7 +90,7 @@ namespace Minesweeper.Services
                     Console.WriteLine(ex.Message);
                 };
             }
-            return gameList;
+            return gotten;
         }
 
         public CellModel[,] GetGameByNumber(GameModel game)
