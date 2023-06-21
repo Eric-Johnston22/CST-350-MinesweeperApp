@@ -8,7 +8,12 @@ namespace Minesweeper.Controllers
     [Route("api/[controller]")]
     public class GameAPIController : ControllerBase
     {
-        GameDAO gameDAO = new GameDAO();
+        IConnect gameDAO;
+
+        public GameAPIController(IConnect gameDAO)
+        {
+            this.gameDAO = gameDAO;
+        }
 
         [HttpGet]
         public ActionResult<IEnumerable<GameModel>> Index()

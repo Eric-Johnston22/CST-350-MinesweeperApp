@@ -9,7 +9,7 @@ namespace Minesweeper.Controllers
 {
     public class GameController : Controller
     {
-        IConnect gameDAO = new GameDAO();
+        IConnect gameDAO;
         static BoardService boardService = new BoardService(10);
 
         public static BoardService temp = new BoardService(10);
