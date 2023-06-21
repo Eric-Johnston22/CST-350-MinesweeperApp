@@ -3,16 +3,23 @@ using Minesweeper.Models;
 using Minesweeper.Services;
 using NuGet.Protocol.Plugins;
 using System.Text.Json;
+using Minesweeper.Filters;
 
 namespace Minesweeper.Controllers
 {
     public class GameController : Controller
     {
-        GameDAO gameDAO = new GameDAO();
+        IConnect gameDAO = new GameDAO();
         static BoardService boardService = new BoardService(10);
 
         public static BoardService temp = new BoardService(10);
 
+        public GameController(IConnect gameDAO)
+        {
+            this.gameDAO = gameDAO;
+        }
+
+        [LoginCheck]
         public IActionResult Index()
         {
             ViewBag.Size = boardService.Size;

@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Minesweeper.Services
 {
-    public class GameDAO
+    public class GameDAO : IConnect
     {
         //Connection credentials
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Minesweeper;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
