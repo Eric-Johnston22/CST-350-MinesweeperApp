@@ -7,6 +7,8 @@ namespace Minesweeper.Controllers
     public class LoginController : Controller
     {
         SecurityService securityService = new SecurityService();
+        
+        MongoDAO mongoDAO = new MongoDAO();
         public IActionResult Index()
         {
             return View();

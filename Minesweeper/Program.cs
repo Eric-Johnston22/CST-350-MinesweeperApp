@@ -2,7 +2,7 @@ using Minesweeper.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<IConnect, GameDAO>();
+builder.Services.AddTransient<IConnect, MongoDAO>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
