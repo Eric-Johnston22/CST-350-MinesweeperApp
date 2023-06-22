@@ -10,7 +10,7 @@ namespace Minesweeper.Services
 
         public GameModel FindGameByNumber(GameModel game);
 
-        public CellModel[,] GetGameByNumber(GameModel game);
+        public BoardService GetGameByNumber(GameModel game);
 
         public bool DeleteGameByNumber(GameModel game);
 

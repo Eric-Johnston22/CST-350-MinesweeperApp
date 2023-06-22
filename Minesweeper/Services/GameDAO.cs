@@ -93,9 +93,10 @@ namespace Minesweeper.Services
             return gotten;
         }
 
-        public CellModel[,] GetGameByNumber(GameModel game)
+        public BoardService GetGameByNumber(GameModel game)
         {
             string sqlStatement = "SELECT * FROM dbo.game WHERE GameNumber=@GameNumber";
+            BoardService temp = new BoardService(10);
             CellModel[,] cellModel = new CellModel[10,10];
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -110,7 +111,7 @@ namespace Minesweeper.Services
                     {
                         string gameData = reader.GetString(4);
                         string[] cells = gameData.Split('&');
-                        GameController.temp = new BoardService(bool.Parse(cells[cells.Length - 5]), bool.Parse(cells[cells.Length - 4]),Int32.Parse(cells[cells.Length - 3]),Int32.Parse(cells[cells.Length - 2]), Int32.Parse(cells[cells.Length - 1]));
+                        temp = new BoardService(bool.Parse(cells[cells.Length - 5]), bool.Parse(cells[cells.Length - 4]),Int32.Parse(cells[cells.Length - 3]),Int32.Parse(cells[cells.Length - 2]), Int32.Parse(cells[cells.Length - 1]));
 
                         for (int i=0;i<cells.Length-5;i++)
                         {
@@ -157,8 +158,8 @@ namespace Minesweeper.Services
                     Console.WriteLine(ex.Message);
                 };
             }
-            GameController.temp.Grid = cellModel;
-            return cellModel;
+            temp.Grid = cellModel;
+            return temp;
         }
         public bool DeleteGameByNumber(GameModel game)
         {

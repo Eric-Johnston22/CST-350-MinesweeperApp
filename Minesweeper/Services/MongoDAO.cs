@@ -80,9 +80,12 @@ namespace Minesweeper.Services
             GameModel gameModel = new GameModel();
             gameModel.Id = retrieved.GetElement("Id").Value.ToInt32();
             gameModel.GameNumber = retrieved.GetElement("GameNumber").Value.ToInt32();
+
+#pragma warning disable CS8601 // Possible null reference assignment.
             gameModel.Time = retrieved.GetElement("Time").Value.ToString();
             gameModel.Date = retrieved.GetElement("Date").Value.ToString();
             gameModel.GameData = retrieved.GetElement("GameData").ToString();
+#pragma warning restore CS8601 // Possible null reference assignment.
             return gameModel;
         }
 
@@ -107,7 +110,7 @@ namespace Minesweeper.Services
             return found;
         }
 
-        public CellModel[,] GetGameByNumber(GameModel game)
+        public BoardService GetGameByNumber(GameModel game)
         {
             CellModel[,] madeGrid = new CellModel[10,10];
 
@@ -121,7 +124,7 @@ namespace Minesweeper.Services
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
             string[] cells = gameData.Split('&');
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-            GameController.temp = new BoardService(bool.Parse(cells[cells.Length - 5]), bool.Parse(cells[cells.Length - 4]), Int32.Parse(cells[cells.Length - 3]), Int32.Parse(cells[cells.Length - 2]), Int32.Parse(cells[cells.Length - 1]));
+            BoardService temp = new BoardService(bool.Parse(cells[cells.Length - 5]), bool.Parse(cells[cells.Length - 4]), Int32.Parse(cells[cells.Length - 3]), Int32.Parse(cells[cells.Length - 2]), Int32.Parse(cells[cells.Length - 1]));
 
             for (int i = 0; i < cells.Length - 5; i++)
             {
@@ -158,8 +161,8 @@ namespace Minesweeper.Services
                 }
                 madeGrid[singleCell.Row, singleCell.Column] = singleCell;
             }
-            GameController.temp.Grid = madeGrid;
-            return madeGrid;
+            temp.Grid = madeGrid;
+            return temp;
         }
     }
 }

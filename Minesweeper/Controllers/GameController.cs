@@ -12,8 +12,6 @@ namespace Minesweeper.Controllers
         IConnect gameDAO;
         static BoardService boardService = new BoardService(10);
 
-        public static BoardService temp = new BoardService(10);
-
         public GameController(IConnect gameDAO)
         {
             this.gameDAO = gameDAO;
@@ -109,8 +107,7 @@ namespace Minesweeper.Controllers
             int num = Int32.Parse(gameNumber);
             GameModel loaded = new GameModel();
             loaded.GameNumber = num;
-            gameDAO.GetGameByNumber(loaded);
-            boardService = temp;
+            boardService = gameDAO.GetGameByNumber(loaded);
             ViewBag.Size = boardService.Size;
             return PartialView("LeftButtonClick",boardService);
         }
