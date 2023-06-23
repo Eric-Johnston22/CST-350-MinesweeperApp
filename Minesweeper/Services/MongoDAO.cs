@@ -112,8 +112,6 @@ namespace Minesweeper.Services
 
         public BoardService GetGameByNumber(GameModel game)
         {
-            CellModel[,] madeGrid = new CellModel[10,10];
-
             var collection = dbClient.GetDatabase("Minesweeper").GetCollection<BsonDocument>("game_data");
             var filter = Builders<BsonDocument>.Filter.Eq("GameNumber",game.GameNumber);
             var retrieved = collection.Find(filter).FirstOrDefault();
@@ -125,7 +123,7 @@ namespace Minesweeper.Services
             string[] cells = gameData.Split('&');
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             BoardService temp = new BoardService(bool.Parse(cells[cells.Length - 5]), bool.Parse(cells[cells.Length - 4]), Int32.Parse(cells[cells.Length - 3]), Int32.Parse(cells[cells.Length - 2]), Int32.Parse(cells[cells.Length - 1]));
-
+            CellModel[,] madeGrid = new CellModel[temp.Size, temp.Size];
             for (int i = 0; i < cells.Length - 5; i++)
             {
                 string[] data = cells[i].Split(",");

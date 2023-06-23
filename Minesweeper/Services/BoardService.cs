@@ -42,7 +42,18 @@ namespace Minesweeper.Services
                 }
             }
             this.RemainingCells = this.Size * this.Size;
-            this.Difficulty = 10;
+
+            if(gridSize==10)
+            {
+                this.Difficulty = 10;
+            } else if (gridSize==20)
+            {
+                this.Difficulty= 20;
+            } else
+            {
+                this.Difficulty = (gridSize/10)+1;
+            }
+
             this.setupLiveNeighbors();
             this.calculateLiveNeighbors();
         }

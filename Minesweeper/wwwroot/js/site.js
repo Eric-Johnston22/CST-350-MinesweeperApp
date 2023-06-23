@@ -6,12 +6,14 @@ $(document).ready(function () {
     
     onWelcome("/Game/Welcome");
 
+    $("#Easy").on("click", function (e) {
+        e.preventDefault();
+        newGame("Easy");
+    });
 
-    $(document).on("click", ".delete-button", function (event) {
-        event.preventDefault();
-        var gameNumber = $(this).val();
-        //console.log("Delete button clicked for game #:"+gameNumber);
-        deleteGame(gameNumber);
+    $("#Advanced").on("click", function (e) {
+        e.preventDefault();
+        newGame("Advanced");
     });
 
     $(document).on("click", ".load-button", function (event) {
@@ -124,7 +126,6 @@ function loadGame(gameNumber) {
         }
     });
 }
-
 function deleteGame(gameNumber) {
     $.ajax({
         datatype: "json",
@@ -134,6 +135,18 @@ function deleteGame(gameNumber) {
         success: function (data) {
             onLoadGames();
             alert("It is "+data+" that game #" + gameNumber+" has been deleted.");
+        }
+    });
+}
+
+function newGame(gameLevel) {
+    $.ajax({
+        datatype: "json",
+        method:'POST',
+        url: "/Game/NewGame",
+        data: { "gameLevel": gameLevel },
+        success: function (data) {
+            $(".flex-grid").html(data);
         }
     });
 }

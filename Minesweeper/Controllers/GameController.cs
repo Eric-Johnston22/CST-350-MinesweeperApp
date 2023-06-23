@@ -65,11 +65,18 @@ namespace Minesweeper.Controllers
             CellModel toFlag = boardService.Grid[x, y];
             return PartialView("RightButtonClick",toFlag);
         }
-        public IActionResult NewGame()
+        public IActionResult NewGame(string gameLevel)
         {
-            boardService = new BoardService(10);
+            if (gameLevel=="Easy")
+            {
+                boardService = new BoardService(10);
+            } else if(gameLevel=="Advanced") {
+                boardService = new BoardService(20);
+            } else {
+                boardService = new BoardService(2);
+            }
             ViewBag.Size = boardService.Size;
-            return View("Index");
+            return PartialView("LeftButtonClick",boardService);
         }
         public IActionResult SaveGame()
         {
