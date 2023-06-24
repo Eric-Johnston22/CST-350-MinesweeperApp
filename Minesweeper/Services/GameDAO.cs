@@ -96,7 +96,7 @@ namespace Minesweeper.Services
         public BoardService GetGameByNumber(GameModel game)
         {
             string sqlStatement = "SELECT * FROM dbo.game WHERE GameNumber=@GameNumber";
-            BoardService temp = new BoardService(10);
+            
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
@@ -110,7 +110,7 @@ namespace Minesweeper.Services
                     {
                         string gameData = reader.GetString(4);
                         string[] cells = gameData.Split('&');
-                        temp = new BoardService(bool.Parse(cells[cells.Length - 5]), bool.Parse(cells[cells.Length - 4]),Int32.Parse(cells[cells.Length - 3]),Int32.Parse(cells[cells.Length - 2]), Int32.Parse(cells[cells.Length - 1]));
+                        BoardService temp = new BoardService(bool.Parse(cells[cells.Length - 5]), bool.Parse(cells[cells.Length - 4]),Int32.Parse(cells[cells.Length - 3]),Int32.Parse(cells[cells.Length - 2]), Int32.Parse(cells[cells.Length - 1]));
                         CellModel[,] cellModel = new CellModel[temp.Size, temp.Size];
                         for (int i=0;i<cells.Length-5;i++)
                         {
@@ -147,18 +147,18 @@ namespace Minesweeper.Services
                             }
                             cellModel[singleCell.Row,singleCell.Column] = singleCell;
                         }
-                        
-                        break;
+                        temp.Grid = cellModel;
+                        return temp;
                     }
-
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 };
             }
-            temp.Grid = cellModel;
-            return temp;
+            BoardService failed = new BoardService(10);
+            return failed;
+
         }
         public bool DeleteGameByNumber(GameModel game)
         {

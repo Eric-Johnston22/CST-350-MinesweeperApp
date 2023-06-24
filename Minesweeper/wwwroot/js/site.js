@@ -16,6 +16,17 @@ $(document).ready(function () {
         newGame("Advanced");
     });
 
+    $("delete-button").on("click", function (e) {
+        e.preventDefault();
+        deleteGame(e.val());
+    });
+    $(document).on("click", ".delete-button", function (event) {
+        event.preventDefault();
+        var gameNumber = $(this).val();
+        //console.log("Delete button clicked for game #:"+gameNumber);
+        deleteGame(gameNumber);
+    });
+
     $(document).on("click", ".load-button", function (event) {
         event.preventDefault();
         var gameNumber = $(this).val();
@@ -146,6 +157,7 @@ function newGame(gameLevel) {
         url: "/Game/NewGame",
         data: { "gameLevel": gameLevel },
         success: function (data) {
+            $("#welcome").html("");
             $(".flex-grid").html(data);
         }
     });
