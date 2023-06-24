@@ -121,11 +121,24 @@ namespace Minesweeper.Services
                                 switch (j)
                                 {
                                     case 0:
-                                        singleCell.Visited = bool.Parse(data[j]);
+                                        if (data[j]=="1")
+                                        {
+                                            singleCell.Visited = true;
+                                        } else
+                                        {
+                                            singleCell.Visited = false;
+                                        }
                                         break;
 
                                     case 1:
-                                        singleCell.Live = bool.Parse(data[j]);
+                                        if (data[j] == "1")
+                                        {
+                                            singleCell.Live = true;
+                                        }
+                                        else
+                                        {
+                                            singleCell.Live = false;
+                                        }
                                         break;
 
                                     case 2:
@@ -133,7 +146,14 @@ namespace Minesweeper.Services
                                         break;
 
                                     case 3:
-                                        singleCell.Flagged = bool.Parse(data[j]);
+                                        if (data[j] == "1")
+                                        {
+                                            singleCell.Flagged = true;
+                                        }
+                                        else
+                                        {
+                                            singleCell.Flagged = false;
+                                        }
                                         break;
 
                                     case 4:
@@ -190,7 +210,7 @@ namespace Minesweeper.Services
                 command.Parameters.Add("@Id", System.Data.SqlDbType.Int).Value = game.Id;
                 command.Parameters.Add("@GameTime", System.Data.SqlDbType.VarChar, 15).Value = game.Time;
                 command.Parameters.Add("@GameDate", System.Data.SqlDbType.VarChar, 15).Value = game.Date;
-                command.Parameters.Add("@GameData", System.Data.SqlDbType.VarChar,3000).Value = game.GameData;
+                command.Parameters.Add("@GameData", System.Data.SqlDbType.VarChar,8000).Value = game.GameData;
 
                 try
                 {

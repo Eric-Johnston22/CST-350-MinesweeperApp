@@ -23,7 +23,10 @@
         }
         public override string ToString()
         {
-            return "" + Visited+"," + Live +","+ LiveNeighbors+"," + Flagged+"," + Row+"," + Column;
+            string v = Visited ? "1" : "0";
+            string l = Live ? "1" : "0";
+            string f = Flagged ? "1" : "0";
+            return "" +v +"," + l +","+ LiveNeighbors +"," + f +"," + Row+"," + Column;
         }
     }
 }
